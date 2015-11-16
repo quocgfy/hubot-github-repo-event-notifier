@@ -56,7 +56,7 @@ module.exports =
     deploy_status = data.deployment_status
     repo = data.repository
 
-    callback "> Status: #{deploy.id} (#{deploy_status.creator.login}) from: #{repo.full_name} to: #{deploy.environment} - #{deploy_status.state}\n> #{deploy_status.description}"
+    callback "#{repo.full_name} -> #{deploy.environment}: #{deploy_status.description.toLowerCase()}"
 
   fork: (data, callback) ->
     forkee = data.forkee
