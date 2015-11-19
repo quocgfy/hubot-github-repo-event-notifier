@@ -49,14 +49,15 @@ module.exports =
     deploy = data.deployment
     repo = data.repository
 
-    callback "New deployment #{deploy.id} from: #{repo.full_name} to: #{deploy.environment} started by: #{deploy.creator.login}"
+    callback "New deployment #{deploy.id} from: #{repo.full_name} to: #{deploy.environment} started by: #{deploy.creator.login}\n> Check your status here: http://octobot.gfycat.com/deploylogs.html?deploy_id=#{deploy.id}"
 
   deployment_status: (data, callback) ->
     deploy = data.deployment
     deploy_status = data.deployment_status
     repo = data.repository
 
-    callback "#{repo.full_name} -> #{deploy.environment}: #{deploy_status.description.toLowerCase()}"
+    if deploy_status.state in ['success', 'failure', 'error']
+      callback "#{repo.full_name} -> #{deploy.environment}: #{deploy_status.description.toLowerCase()}"
 
   fork: (data, callback) ->
     forkee = data.forkee
@@ -64,7 +65,7 @@ module.exports =
 
     callback "#{repo.full_name} forked by #{forkee.owner.login}"
 
-  # Needs to handle more then just one page
+  # Needs to handle mcore then just one page
   gollum: (data, callback) ->
     pages = data.pages
     repo = data.repository
